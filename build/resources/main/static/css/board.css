@@ -1,0 +1,13 @@
+.board-design {
+    display: block;
+    width: clamp(375px, 82vw ,820px);
+}
+
+.board-main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.table-text-vertical {
+    vertical-align: middle;
+}

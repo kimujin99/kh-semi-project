@@ -1,0 +1,10 @@
+.login-form-container {
+    width: 85%;
+    max-width: 460px;
+    border: 1px solid #a48ccd;
+}
+
+.logo-circle {
+    width: clamp(110px, 50% , 150px);
+    height: clamp(110px, 50% , 150px);
+}

@@ -1,0 +1,9 @@
+.signup-form-container {
+    width: 90%;
+    max-width: 810px;
+    border: 1px solid #a48ccd;
+}
+
+.signup-btn {
+    width: clamp(180px, 30vw, 430px);
+}

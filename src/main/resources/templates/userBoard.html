@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>게시판 - 회원관리</title>
+
+    <!-- 부트 스트랩 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/pulse/bootstrap.min.css">
+
+    <!-- 자바스크립트 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+
+</head>
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">SpringPJT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a sec:authorize="isAnonymous()" class="nav-link" th:href="@{/login}">로그인
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="isAnonymous()" class="nav-link" th:href="@{/signup}">회원가입</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/board}">게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link active" th:href="@{/user-board}">회원관리</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="board-main-container">
+
+    <div class="board-design m-4">
+
+        <table class="table table-hover">
+            <!-- 테이블 column -->
+            <thead>
+                <tr class="table-secondary text-center">
+                    <th class="col-sm-5">아이디</th>
+                    <th class="col-sm-4">이름</th>
+                    <th class="col-sm-3">성별</th>
+                </tr>
+            </thead>
+
+            <!-- 테이블 row -->
+            <tbody>
+                <tr th:each="user : ${userList}"
+                    th:onclick="'location.href = \'' + @{'/user-detail/'+ ${user.email_id}} + '\''"
+                    class="text-center">
+
+                    <th class="table-text-vertical" scope="row">
+                        <p th:text="${user.email_id}">아이디</p>
+                    </th>
+
+                    <td class="table-text-vertical">
+                        <p th:text="${user.username}">이름</p>
+                    </td>
+
+                    <td class="table-text-vertical">
+                        <p th:text="${user.gender} ? '여자' : '남자'">성별</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <!-- 사용자 목록 수 -->
+            <label th:text=" '합계：' + ${userListCount} + '건' " class="mb-2"></label><br/>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
